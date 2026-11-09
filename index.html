@@ -10,6 +10,27 @@
     	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
     	<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
 		<link rel="manifest" href="/site.webmanifest">
+		<style>
+			/* Hidden game link + Snake panel */
+			#footer .secret { letter-spacing: 0.2rem; font-size: 0.65rem; text-transform: uppercase; margin-bottom: 0; }
+			#footer .secret a { border-bottom: 0; opacity: 0.55; transition: opacity 0.3s ease, letter-spacing 0.3s ease; animation: secret-glow 4s ease-in-out infinite; }
+			#footer .secret a:hover { opacity: 1; letter-spacing: 0.3rem; animation: none; }
+			@keyframes secret-glow { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.85; } }
+
+			#game .snake-device { max-width: 24rem; margin: 0 auto 1.25rem auto; padding: 1rem; border-radius: 18px 18px 26px 26px; background: linear-gradient(180deg, #2a2f33, #1d2124); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12), 0 10px 30px rgba(0,0,0,0.4); }
+			#game .snake-screen { background: #b7c59a; border-radius: 6px; padding: 0.5rem; box-shadow: inset 0 0 0 2px #8e9c74, inset 0 4px 12px rgba(0,0,0,0.25); }
+			#game .snake-hud { display: flex; justify-content: space-between; color: #2b361e; font-family: "Courier New", monospace; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1rem; line-height: 1; padding: 0 0.15rem 0.4rem 0.15rem; border-bottom: 2px solid #2b361e; margin-bottom: 0.4rem; }
+			#snake-canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; touch-action: none; }
+			#game .snake-pad { display: grid; grid-template-columns: repeat(3, 3rem); grid-template-rows: repeat(2, 2.4rem); gap: 0.35rem; justify-content: center; margin-top: 0.9rem; }
+			#game .snake-pad button { height: 100%; width: 100%; padding: 0; line-height: 1; font-size: 0.9rem; letter-spacing: 0; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35); touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+			#game .snake-pad [data-dir="up"] { grid-column: 2; grid-row: 1; }
+			#game .snake-pad [data-dir="left"] { grid-column: 1; grid-row: 2; }
+			#game .snake-pad [data-dir="down"] { grid-column: 2; grid-row: 2; }
+			#game .snake-pad [data-dir="right"] { grid-column: 3; grid-row: 2; }
+			#snake-msg { text-align: center; min-height: 1.75em; margin-bottom: 1rem; }
+			#game .snake-help { text-align: center; font-size: 0.8rem; opacity: 0.6; margin-bottom: 1.5rem; }
+			#game .actions { justify-content: center; }
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -42,6 +63,29 @@
 
 				<!-- Main -->
 					<div id="main">
+
+						<!-- Hidden game (opened from the footer link) -->
+							<article id="game">
+								<h2 class="major">Snake</h2>
+								<p>You found it. Eat, grow, and don&rsquo;t bite your own tail. Walls wrap around.</p>
+								<div class="snake-device">
+									<div class="snake-screen">
+										<div class="snake-hud"><span id="snake-score">0000</span><span>HI <span id="snake-best">0000</span></span></div>
+										<canvas id="snake-canvas" aria-label="Snake game screen"></canvas>
+									</div>
+									<div class="snake-pad">
+										<button type="button" data-dir="up" aria-label="Up">&#9650;</button>
+										<button type="button" data-dir="left" aria-label="Left">&#9664;</button>
+										<button type="button" data-dir="down" aria-label="Down">&#9660;</button>
+										<button type="button" data-dir="right" aria-label="Right">&#9654;</button>
+									</div>
+								</div>
+								<p id="snake-msg">Press start, or any arrow key.</p>
+								<ul class="actions">
+									<li><a href="#game" id="snake-start" class="button primary">Start</a></li>
+								</ul>
+								<p class="snake-help">Arrow keys / WASD to steer &middot; Space to pause &middot; Swipe on mobile</p>
+							</article>
 
 						<!-- Blog -->
 							<article id="blog">
@@ -410,7 +454,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 				<!-- Footer -->
 					<footer id="footer">
-						<p></p>
+						<p class="secret"><a href="#game">psst… something is hiding in here</a></p>
 					</footer>
 
 			</div>
@@ -424,6 +468,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 		 	<script src="assets/js/breakpoints.min.js"></script> 
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/snake.js"></script>
 
 	</body>
 </html>
